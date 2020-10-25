@@ -12,21 +12,30 @@ const arrCase1 = [false, 100, [24, 33], "💩", 55, "🥵", null, 45, "Sanyia", 
 const arrCase2 = ["28", 100, 60, "Elamin", 55, "75", "🍕"];
 
 sortAges=arr=>{
-  return arr.filter(element => typeof element == 'number');
  
+  let numbers = [];
+  for(i= 0; i<arr.length; i++){
+if(typeof arr[i] == 'number'){
+  numbers.push(arr[i]);
+}
+  }
+  return numbers.sort((a,b)=> a-b);
+
+
+//with For each loop
+  // let numberArr = [];
+  // arr.forEach(item => {
+  //   if(typeof item === 'number'){
+  //     numberArr.push(item);
+  //   }
+  // });
+  // return numberArr.sort((a,b) => a - b);
+
+  //With Filter
+  // return arr.filter(element => typeof element == 'number');
+
   }
 
-
-//5 Hard Mode (with For each loop)
-//  sortAges=arr=>{
-//   let ages = [];
-//   for(i= 0; i<arr.length; i++){
-// if(typeof arr[i] == 'number'){
-//   ages.push(arr[i]);
-// }
-//   }
-//   return ages.sort((a,b)=> a-b);
-//   }
   console.log(sortAges(arrCase1));
   console.log(sortAges(arrCase2));
  
@@ -35,3 +44,24 @@ sortAges=arr=>{
 
 
 /* ======= TESTS ===== */
+test=(arr, expectedArr)=>{
+  let actualArr =sortAges(arr);
+  if(actualArr.length === expectedArr.length){
+    let final=[];
+    for(let i=0; i<actualArr.length; i++){
+      if(actualArr[i]===expectedArr[i]){
+        final.push("passed");
+      }else{
+        return "failed";
+      }
+    }
+    return final.length === actualArr.length? 'passed':"failed";
+  }
+}
+let expectedArr1 = [23, 45, 55, 66, 100];
+let expectedArr2 = [55, 60, 100];
+let expectedArr3 = [55, 60, 101];
+
+console.log(test(arrCase1, expectedArr1));
+console.log(test(arrCase2, expectedArr2));
+console.log(test(arrCase2, expectedArr3));
